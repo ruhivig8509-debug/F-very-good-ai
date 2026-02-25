@@ -58,7 +58,7 @@ if not GEMINI_API_KEYS:
     )
 
 # ── MODEL NAME (confirmed working) ──
-GEMINI_MODEL = "gemini-2.0-flash"
+GEMINI_MODEL = "gemini-3-flash-preview"
 
 
 # ═══════════════════════════════════════════════════════════════
