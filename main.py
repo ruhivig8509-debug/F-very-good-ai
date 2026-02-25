@@ -652,16 +652,19 @@ def get_gemini_response(user_id, chat_id, user_message, user_name=""):
         else:
             chat_context = "This is the start of conversation."
 
-        system_prompt = RUHI_SYSTEM_PROMPT.format(
-            memory_context=memory_text,
-            chat_context=chat_context,
-            user_name=user_name or "Unknown",
-            user_mood=user_mood,
-            preferred_address=preferred_address
+        # .replace() use kar rahe hain taaki symbols {} se crash na ho
+        system_prompt = (
+            RUHI_SYSTEM_PROMPT
+            .replace("{memory_context}", memory_text)
+            .replace("{chat_context}", chat_context)
+            .replace("{user_name}", user_name or "Unknown")
+            .replace("{user_mood}", user_mood)
+            .replace("{preferred_address}", preferred_address)
         )
 
+        # Gemini 3 Flash Preview use kar rahe hain jo tune curl mein test kiya
         model = genai.GenerativeModel(
-            model_name="gemini-2.0-flash",
+            model_name="gemini-3-flash-preview",
             system_instruction=system_prompt
         )
 
